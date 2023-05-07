@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import ThemeProvider from "@/lib/theme/ThemeProvider";
+import QueryProvider from "@/lib/rquery/query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,7 +48,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body className={inter.className}>
         <Suspense fallback={<div>Loading...</div>}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <QueryProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </QueryProvider>
         </Suspense>
       </body>
     </html>

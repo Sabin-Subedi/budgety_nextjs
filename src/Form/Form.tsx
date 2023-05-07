@@ -1,32 +1,55 @@
 "use client";
-import React from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import { ZodSchema } from "zod";
+import { BoxProps } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
+import {
+  DefaultValues,
+  FieldValues,
+  FormProvider,
+  useForm,
+} from "react-hook-form";
+import { AppBox } from "ui";
+import { ZodSchema } from "zod";
+import { DevTool } from "@hookform/devtools";
 
 interface FormProps {
   validationSchema: ZodSchema;
   onSubmit?: (data: FieldValues) => void;
   children: React.ReactNode | React.ReactNode[];
+  containterStyle?: BoxProps;
+  defaultValues?: DefaultValues<any>;
 }
 const defaultSubmit = (data: FieldValues) => console.log("Form response", data);
 
-function Form({
+function Form<InputValues extends FieldValues>({
   validationSchema,
   onSubmit = defaultSubmit,
   children,
+  containterStyle,
+  defaultValues,
 }: FormProps) {
-  const { register, handleSubmit, reset, formState } = useForm({
+  const methods = useForm<InputValues>({
     resolver: zodResolver(validationSchema),
+    defaultValues,
+    shouldFocusError: true,
   });
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      onReset={() => {
-        reset();
-      }}
-    ></form>
+    <>
+      <FormProvider {...methods}>
+        <AppBox
+          as="form"
+          onSubmit={methods.handleSubmit(onSubmit)}
+          onReset={() => {
+            methods.reset();
+          }}
+          {...containterStyle}
+        >
+          {children}
+        </AppBox>
+      </FormProvider>
+      <DevTool control={methods.control} placement="bottom-right" />
+    </>
   );
 }
 

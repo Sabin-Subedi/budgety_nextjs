@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
-import { ChakraBaseProvider } from "@chakra-ui/react";
-import { appTheme } from "./theme";
 import { CacheProvider } from "@chakra-ui/next-js";
+import { ChakraProvider } from "@chakra-ui/react";
+import React from "react";
+import { appTheme } from "./theme";
 
 function ThemeProvider({
   children,
@@ -11,7 +11,7 @@ function ThemeProvider({
 }) {
   return (
     <CacheProvider>
-      <ChakraBaseProvider theme={appTheme}>{children}</ChakraBaseProvider>
+      <ChakraProvider theme={appTheme}>{children}</ChakraProvider>
     </CacheProvider>
   );
 }

@@ -1,8 +1,6 @@
 import { withDefaultSize } from "@chakra-ui/react";
-import { defaultColorScheme } from "./colorScheme.default";
 
-export const defaultThemeSettings = () => (
-  defaultColorScheme(),
+export const defaultSize = () =>
   withDefaultSize({
     size: {
       base: "sm",
@@ -12,5 +10,4 @@ export const defaultThemeSettings = () => (
       "3xl": "3xl",
     },
     components: ["Container"],
-  })
-);
+  });

@@ -1,8 +1,8 @@
-import { Form } from "@/Form";
 import { Icons } from "@/components/icons";
+import AuthLoginForm from "@/lib/forms/AuthLoginForm";
 // import AppContainer from "@/components/ui/AppContainer";
 import Link from "next/link";
-import { AppButton, AppContainer, AppIconButton } from "ui";
+import { AppButton, AppContainer, AppFlex } from "ui";
 
 export const metadata = {
   title: "Login Page",
@@ -11,12 +11,19 @@ export const metadata = {
 
 function LoginPage() {
   return (
-    <AppContainer py="1rem" minH="100vh">
+    <AppContainer display="flex" flexDirection="column" py="1rem" minH="100vh">
       <Link href="/">
-        <AppButton variant="ghost" leftIcon={<Icons.ChevronLeft />}>
+        <AppButton
+          colorScheme="gray"
+          variant="ghost"
+          leftIcon={<Icons.ChevronLeft />}
+        >
           Back
         </AppButton>
       </Link>
+      <AppFlex flex={1} alignItems="center" justifyContent="center">
+        <AuthLoginForm />
+      </AppFlex>
     </AppContainer>
   );
 }

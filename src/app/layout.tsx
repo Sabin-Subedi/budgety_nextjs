@@ -3,8 +3,11 @@ import "@fontsource/dm-sans";
 
 import "./globals.css";
 import { Inter } from "next/font/google";
-import ThemeProvider from "@/lib/theme/ThemeProvider";
+
 import { siteConfig } from "@/config/site";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import ThemeProvider from "@/lib/theme/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,7 +46,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <head />
       <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </Suspense>
       </body>
     </html>
   );

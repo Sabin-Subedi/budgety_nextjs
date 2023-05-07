@@ -35,5 +35,16 @@ export const TextTheme = defineStyleConfig({
       fontWeight: 400,
       color: "gray.600",
     },
+    link: {
+      fontSize: "1em", // 16px
+      lineHeight: "1.875em",
+      fontWeight: 500,
+      color: "gray.700",
+      cursor: "pointer",
+      textDecoration: "underline",
+      _hover: {
+        color: "gray.800",
+      },
+    },
   },
 });

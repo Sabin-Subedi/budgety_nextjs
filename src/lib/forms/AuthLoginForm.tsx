@@ -12,10 +12,11 @@ import {
   AppText,
   DividerText,
 } from "ui";
-import { loginSchema } from "../validations/authValidationis";
+import { loginSchema } from "../validations/authValidations";
 import Logo from "@/components/Logo";
 
 function AuthLoginForm() {
+  async function googleSignIn() {}
   return (
     <AppBox mt="1rem" minW="sm">
       <AppBox mb="1rem" textAlign="center">
@@ -79,6 +80,9 @@ function AuthLoginForm() {
           Continue with Facebook
         </AppButton>
       </AppFlex>
+      <AppText textAlign="center" mt="1rem" variant="link">
+        Don&apos;t have an account? Sign Up
+      </AppText>
     </AppBox>
   );
 }

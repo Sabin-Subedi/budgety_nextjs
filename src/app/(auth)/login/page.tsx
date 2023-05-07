@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Icons } from "@/components/icons";
 import AuthLoginForm from "@/lib/forms/AuthLoginForm";
 import { AppButton, AppContainer, AppFlex } from "ui";
+import { PAGE_ROUTES } from "@/constants/pageRoutes";
 
 export const metadata: Metadata = {
   title: "Login Page",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 function LoginPage() {
   return (
     <AppContainer display="flex" flexDirection="column" py="1rem" minH="100vh">
-      <Link href="/">
+      <Link href={PAGE_ROUTES.home}>
         <AppButton
           colorScheme="gray"
           variant="ghost"

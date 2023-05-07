@@ -1,10 +1,11 @@
+import { Metadata } from "next";
+import Link from "next/link";
+
 import { Icons } from "@/components/icons";
 import AuthLoginForm from "@/lib/forms/AuthLoginForm";
-// import AppContainer from "@/components/ui/AppContainer";
-import Link from "next/link";
 import { AppButton, AppContainer, AppFlex } from "ui";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Login Page",
   description: "Login to your account",
 };

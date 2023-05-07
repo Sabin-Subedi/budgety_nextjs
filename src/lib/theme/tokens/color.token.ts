@@ -107,6 +107,7 @@ export const COLOR_TOKENS = Object.freeze({
     "900": "#161C24",
     main: "#919EAB",
   },
+  facebook: "#1778F2",
   background: {
     light: "#FCFCFD",
   },

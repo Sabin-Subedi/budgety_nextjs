@@ -9,6 +9,8 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import ThemeProvider from "@/lib/theme/ThemeProvider";
 import QueryProvider from "@/lib/rquery/query-provider";
+import { AuthContextProvider } from "@/context/AuthContext";
+import FullPageLoader from "@/components/ui/FullPageLoader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,7 +51,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={inter.className}>
         <Suspense fallback={<div>Loading...</div>}>
           <QueryProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeProvider>
+              <AuthContextProvider>{children}</AuthContextProvider>
+            </ThemeProvider>
           </QueryProvider>
         </Suspense>
       </body>

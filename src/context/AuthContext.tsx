@@ -1,5 +1,5 @@
 "use client";
-import React, { useReducer } from "react";
+import React, { useCallback, useReducer } from "react";
 
 enum AuthActionType {
   LOGIN = "LOGIN",
@@ -56,12 +56,16 @@ export const AuthContextProvider: React.FC<{
 }> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialValue);
 
-  const loginUser = (user: any) => {
-    dispatch({ type: AuthActionType.LOGIN, payload: { user } });
-  };
-  const logOutUser = () => {
+  const loginUser = useCallback(
+    (user: any) => {
+      dispatch({ type: AuthActionType.LOGIN, payload: { user } });
+    },
+    [dispatch]
+  );
+
+  const logOutUser = useCallback(() => {
     dispatch({ type: AuthActionType.LOGOUT, payload: { user: null } });
-  };
+  }, [dispatch]);
 
   return (
     <AuthContext.Provider

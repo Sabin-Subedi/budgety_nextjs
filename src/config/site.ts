@@ -4,3 +4,4 @@ export const siteConfig = Object.freeze({
 });
 
 export const DEFAULT_HOME_ROUTE = "/";
+export const DEFAULT_LOGIN_ROUTE = "/login";

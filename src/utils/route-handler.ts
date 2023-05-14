@@ -20,27 +20,25 @@ export const getAPIRouteByName = (
   return route;
 };
 
-export const getPageRouteByName = ({
-  pageRouteName,
-  modifier,
-  query,
-}: {
-  pageRouteName: string;
-  modifier: routeModifier;
-  query?: StringifiableRecord;
-}) => {
+export const getPageRouteByName = (
+  pageRouteName: string,
+  options?: { modifier?: routeModifier; query?: StringifiableRecord }
+) => {
   let route = PAGE_ROUTES[pageRouteName];
   if (!route) {
     throw new Error(`Route ${pageRouteName} not found`);
   }
-  if (modifier) {
-    Object.keys(modifier).forEach((key) => {
-      route = route.replace(`:${key}`, modifier[key]);
+  if (options?.modifier) {
+    Object.keys(options.modifier).forEach((key) => {
+      route = route.replace(
+        `:${key}`,
+        options.modifier && options.modifier[key] ? options.modifier[key] : ""
+      );
     });
   }
 
-  if (query) {
-    route = `${route}?${queryString.stringify(query)}`;
+  if (options?.query) {
+    route = `${route}?${queryString.stringify(options.query)}`;
   }
   return route;
 };

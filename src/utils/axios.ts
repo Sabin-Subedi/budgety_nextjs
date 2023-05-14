@@ -1,7 +1,7 @@
 import { REACT_BASE_URL } from "@/constants/env";
+import { routeModifier } from "@/types/route";
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { getAPIRouteByName } from "./route-handler";
-import { routeModifier } from "@/types/route";
 
 declare module "axios" {
   interface AxiosRequestConfig {

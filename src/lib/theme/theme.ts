@@ -1,22 +1,19 @@
-import {
-  extendBaseTheme,
-  extendTheme,
-  withDefaultColorScheme,
-} from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
+import { AlertTheme } from "./components/alert";
+import ButtonTheme from "./components/button";
 import ContainerTheme from "./components/container";
+import DividerTheme from "./components/divider";
+import HeadingTheme from "./components/heading";
+import InputTheme from "./components/input";
+import { TextTheme } from "./components/text";
+import { defaultColorScheme } from "./default/colorScheme.default";
+import { defaultProps } from "./default/props.default";
 import { defaultSize } from "./default/size.default";
 import { globalStyles } from "./default/styles.default";
+import { defaultVariant } from "./default/variant.default";
 import { BREAKPOINT_TOKEN } from "./tokens/breakpoint.token";
 import { COLOR_TOKENS } from "./tokens/color.token";
 import { FONT_TOKENS } from "./tokens/fonts.token";
-import ButtonTheme from "./components/button";
-import InputTheme from "./components/input";
-import HeadingTheme from "./components/heading";
-import { TextTheme } from "./components/text";
-import { defaultColorScheme } from "./default/colorScheme.default";
-import DividerTheme from "./components/divider";
-import { defaultVariant } from "./default/variant.default";
-import { defaultProps } from "./default/props.default";
 
 export const appTheme = extendTheme(
   {
@@ -31,6 +28,7 @@ export const appTheme = extendTheme(
       Heading: HeadingTheme,
       Text: TextTheme,
       Divider: DividerTheme,
+      Alert: AlertTheme,
     },
   },
   defaultSize(),

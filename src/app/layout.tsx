@@ -1,16 +1,14 @@
-import "@fontsource/pt-sans";
 import "@fontsource/dm-sans";
+import "@fontsource/pt-sans";
 
-import "./globals.css";
 import { Inter } from "next/font/google";
+import "./globals.css";
 
 import { siteConfig } from "@/config/site";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
-import ThemeProvider from "@/lib/theme/ThemeProvider";
-import QueryProvider from "@/lib/rquery/query-provider";
 import { AuthContextProvider } from "@/context/AuthContext";
-import FullPageLoader from "@/components/ui/FullPageLoader";
+import QueryProvider from "@/lib/rquery/query-provider";
+import ThemeProvider from "@/lib/theme/ThemeProvider";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -11,13 +11,15 @@ import {
 import { AppBox } from "ui";
 import { ZodSchema } from "zod";
 import { DevTool } from "@hookform/devtools";
+import { defaultFormValues } from "@/constants/defaultFormValues";
 
-interface FormProps {
+interface FormProps<T> {
+  defaultValues: DefaultValues<T>;
   validationSchema: ZodSchema;
-  onSubmit?: (data: FieldValues) => void;
+  onSubmit?: (data: T) => void;
   children: React.ReactNode | React.ReactNode[];
-  containterStyle?: BoxProps;
-  defaultValues?: DefaultValues<any>;
+  containerStyle?: BoxProps;
+  formName: string;
 }
 const defaultSubmit = (data: FieldValues) => console.log("Form response", data);
 
@@ -25,12 +27,16 @@ function Form<InputValues extends FieldValues>({
   validationSchema,
   onSubmit = defaultSubmit,
   children,
-  containterStyle,
+  formName,
+  containerStyle,
   defaultValues,
-}: FormProps) {
+}: FormProps<InputValues>) {
   const methods = useForm<InputValues>({
     resolver: zodResolver(validationSchema),
-    defaultValues,
+    defaultValues:
+      process.env.NODE_ENV === "development"
+        ? defaultFormValues[formName] || defaultValues
+        : defaultValues,
     shouldFocusError: true,
   });
 
@@ -43,7 +49,7 @@ function Form<InputValues extends FieldValues>({
           onReset={() => {
             methods.reset();
           }}
-          {...containterStyle}
+          {...containerStyle}
         >
           {children}
         </AppBox>

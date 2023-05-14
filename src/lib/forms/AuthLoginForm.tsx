@@ -1,9 +1,12 @@
 "use client";
 import { Form } from "@/Form";
 import FormField from "@/Form/FormField";
+import Link from "@/components/Link";
+import Logo from "@/components/Logo";
+import ErrorBox from "@/components/ui/ErrorBox";
+import useAppMutation from "@/hooks/useAppMutation";
 import { Icon } from "@chakra-ui/react";
 import { FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import {
   AppBox,
   AppButton,
@@ -13,10 +16,21 @@ import {
   DividerText,
 } from "ui";
 import { loginSchema } from "../validations/authValidations";
-import Logo from "@/components/Logo";
+import GoogleOauth from "./GoogleOauth";
+
+interface AuthLoginFormInputs {
+  email: string;
+  password: string;
+}
 
 function AuthLoginForm() {
-  async function googleSignIn() {}
+  const { mutateAsync, isLoading, error } = useAppMutation<
+    AuthLoginFormInputs,
+    LoginResponse
+  >({
+    name: "login",
+    onSuccess: (data) => {},
+  });
   return (
     <AppBox mt="1rem" minW="sm">
       <AppBox mb="1rem" textAlign="center">
@@ -28,12 +42,17 @@ function AuthLoginForm() {
           Enter your email to sign in to your account
         </AppText>
       </AppBox>
-      <Form
-        containterStyle={{
+      <Form<AuthLoginFormInputs>
+        formName="login"
+        containerStyle={{
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
         }}
+        onSubmit={(data) => {
+          mutateAsync(data);
+        }}
+        defaultValues={{ email: "", password: "" }}
         validationSchema={loginSchema}
       >
         <FormField
@@ -48,8 +67,8 @@ function AuthLoginForm() {
           placeholder="*********"
           showLabel={false}
         />
-
-        <AppButton type="submit" size="md" my="1rem">
+        <ErrorBox err={error?.message} />
+        <AppButton isLoading={isLoading} type="submit" size="md" my="1rem">
           Login
         </AppButton>
       </Form>
@@ -57,17 +76,7 @@ function AuthLoginForm() {
       <DividerText text="or" />
 
       <AppFlex flexDir="column" gap="1rem" mt="1rem">
-        <AppButton
-          w="full"
-          leftIcon={<Icon as={FcGoogle} fontSize="1rem" />}
-          iconSpacing="0.5rem"
-          size="md"
-          colorScheme="gray"
-          variant="outline"
-          borderColor="gray.400"
-        >
-          Continue with Google
-        </AppButton>
+        <GoogleOauth />
         <AppButton
           w="full"
           leftIcon={<Icon as={FaFacebook} fontSize="1rem" color="facebook" />}
@@ -80,9 +89,11 @@ function AuthLoginForm() {
           Continue with Facebook
         </AppButton>
       </AppFlex>
-      <AppText textAlign="center" mt="1rem" variant="link">
-        Don&apos;t have an account? Sign Up
-      </AppText>
+      <Link name="register">
+        <AppText textAlign="center" mt="1rem" variant="link">
+          Don&apos;t have an account? Sign Up
+        </AppText>
+      </Link>
     </AppBox>
   );
 }

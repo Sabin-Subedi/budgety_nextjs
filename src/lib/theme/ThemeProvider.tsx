@@ -11,7 +11,19 @@ function ThemeProvider({
 }) {
   return (
     <CacheProvider>
-      <ChakraProvider theme={appTheme}>{children}</ChakraProvider>
+      <ChakraProvider
+        theme={appTheme}
+        toastOptions={{
+          defaultOptions: {
+            duration: 3000,
+            position: "top-right",
+            isClosable: false,
+            variant: "solid",
+          },
+        }}
+      >
+        {children}
+      </ChakraProvider>
     </CacheProvider>
   );
 }

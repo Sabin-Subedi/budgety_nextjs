@@ -2,6 +2,7 @@
 import FullPageLoader from "@/components/ui/FullPageLoader";
 import { DEFAULT_HOME_ROUTE, DEFAULT_LOGIN_ROUTE } from "@/config/site";
 import useAppMutation from "@/hooks/useAppMutation";
+import { LoginSuccessResponse } from "@/types/response/auth";
 import { setLocalStorageItem } from "@/utils/storage/localstorage";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
@@ -19,22 +20,18 @@ async function OAuthProviderPage({
   const { oAuth } = params;
   const router = useRouter();
   const toast = useToast();
-  const { mutate } = useAppMutation<
-    {},
-    {
-      accessToken: string;
-      refreshToken: string;
-    }
-  >({
+  const { mutate } = useAppMutation<{}, LoginSuccessResponse>({
     name: `${oAuth}_oauth`,
     method: "get",
     requestConfig: {
       params: searchParams,
     },
-    onSuccess: ({ data }) => {
-      data.accessToken && setLocalStorageItem("accessToken", data.accessToken);
-      data.refreshToken &&
-        setLocalStorageItem("refreshToken", data.refreshToken);
+    onSuccess: ({ data: { data } }) => {
+      console.log(data);
+      data.access_token &&
+        setLocalStorageItem("accessToken", data.access_token);
+      data.refresh_token &&
+        setLocalStorageItem("refreshToken", data.refresh_token);
       router.push(DEFAULT_HOME_ROUTE);
     },
     onError: (error) => {

@@ -5,8 +5,10 @@ import Link from "@/components/Link";
 import Logo from "@/components/Logo";
 import ErrorBox from "@/components/ui/ErrorBox";
 import useAppMutation from "@/hooks/useAppMutation";
+import { LoginSuccessResponse } from "@/types/response/auth";
 import { Icon } from "@chakra-ui/react";
 import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import {
   AppBox,
   AppButton,
@@ -15,8 +17,8 @@ import {
   AppText,
   DividerText,
 } from "ui";
+import OAuthButton from "../../components/OAuthButton";
 import { loginSchema } from "../validations/authValidations";
-import GoogleOauth from "./GoogleOauth";
 
 interface AuthLoginFormInputs {
   email: string;
@@ -26,7 +28,7 @@ interface AuthLoginFormInputs {
 function AuthLoginForm() {
   const { mutateAsync, isLoading, error } = useAppMutation<
     AuthLoginFormInputs,
-    LoginResponse
+    LoginSuccessResponse
   >({
     name: "login",
     onSuccess: (data) => {},
@@ -76,18 +78,14 @@ function AuthLoginForm() {
       <DividerText text="or" />
 
       <AppFlex flexDir="column" gap="1rem" mt="1rem">
-        <GoogleOauth />
-        <AppButton
-          w="full"
-          leftIcon={<Icon as={FaFacebook} fontSize="1rem" color="facebook" />}
-          iconSpacing="0.5rem"
-          size="md"
-          colorScheme="gray"
-          variant="outline"
-          borderColor="gray.400"
-        >
-          Continue with Facebook
-        </AppButton>
+        <OAuthButton icon={FcGoogle} name="Google" />
+        <OAuthButton
+          icon={FaFacebook}
+          name="Facebook"
+          iconProps={{
+            color: "facebook",
+          }}
+        />
       </AppFlex>
       <Link name="register">
         <AppText textAlign="center" mt="1rem" variant="link">

@@ -6,7 +6,6 @@ import Logo from "@/components/Logo";
 import ErrorBox from "@/components/ui/ErrorBox";
 import useAppMutation from "@/hooks/useAppMutation";
 import { LoginSuccessResponse } from "@/types/response/auth";
-import { Icon } from "@chakra-ui/react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import {
